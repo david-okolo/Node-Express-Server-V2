@@ -33,35 +33,28 @@ const createUser = (_name = username, _password = password, _email = email)=>{
 }
 
 describe('Users API tests', ()=>{
-    describe(`Registration`, ()=>{
-        before((done)=>{
-            mongoServer = new MongoMemoryServer();
-            mongoServer.getConnectionString()
-            .then((mongoUri)=>{
-                dbconnect(mongoUri).then((resolve)=>{
-                    console.log('Database '+resolve);
-                    server = app.listen(3000);
-                    done();
-                }).catch((err)=>{
-                    console.log(err);
-                    done();
-                })
-            })
-        });
 
-        after((done)=>{
-            dbclose().then(()=>{
-                server.close()
-                process.exit(0)
+    before((done)=>{
+        mongoServer = new MongoMemoryServer();
+        mongoServer.getConnectionString()
+        .then((mongoUri)=>{
+            dbconnect(mongoUri).then((resolve)=>{
+                console.log('------------------' + 'Database '+resolve + '-----------------');
+                server = app.listen(3000);
+                done();
+            }).catch((err)=>{
+                console.log(err);
                 done();
             })
         })
+    });
+
+    describe(`Registration`, ()=>{
         it(`should not register bad requests`, (done) => {
             let req = http.request(createOptions('register'), (res) => {
                 done()
                 res.on('data', (result)=>{
                     result = JSON.parse(result);
-                    console.log(result)
                     expect(result.success).to.be.false
                     expect(result.msg).to.equal('user validation failed')
                 });
@@ -81,7 +74,10 @@ describe('Users API tests', ()=>{
                 });
                 res.on('data', (result)=>{
                     result = JSON.parse(result);
-                    expect(result.data.username).to.equal("root")
+                    expect(result.data).to.contain.property('_id');
+                    expect(result.data).to.contain.property('username');
+                    expect(result.data).to.contain.property('password');
+                    expect(result.data).to.contain.property('email');
                     expect(result.success).to.be.true
                 });
             });
@@ -89,7 +85,7 @@ describe('Users API tests', ()=>{
             req.end();
         });  
 
-        it(`should not register an existing account with the same email`, (done)=>{
+        it(`should not register an existing account with the same email or username`, (done)=>{
             let req = http.request(createOptions('register'), (res)=>{
                 done();
                 res.on('error', (err) => {
@@ -97,12 +93,21 @@ describe('Users API tests', ()=>{
                 });
                 res.on('data', (result)=>{
                     result = JSON.parse(result);
-                    expect(result.success).to.equal(true)
-                    expect(result.msg).to.equal('username already exists')
+                    expect(result.success).to.equal(false)
+                    expect(result.msg).to.equal('email already exists' || 'username already exists')
                 })
             });
             req.write(JSON.stringify(createUser()));
             req.end();
+        })
+    })
+
+    after((done)=>{
+        dbclose().then(()=>{
+            server.close()
+            console.log('------------------' + 'Database disconnected' + '-----------------');
+            process.exit(0)
+            done();
         })
     })
 })
