@@ -1,4 +1,4 @@
-import user from '../models/user.model'
+import user from '../models/user.model';
 import bcrypt from 'bcrypt';
 
 
