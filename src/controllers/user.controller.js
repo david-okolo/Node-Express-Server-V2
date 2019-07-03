@@ -17,6 +17,10 @@ const getUserByEmail = (_email, callback)=>{
     user.findOne({email: _email}, callback)
 }
 
+const comparePassword = (_emailOrUsername, callback)=>{
+
+}
+
 
 export default {
     addUser,
