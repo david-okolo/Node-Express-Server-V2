@@ -4,13 +4,13 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/register', (req, res)=>{
-    let user = {
+    let newUser = {
         username: req.body.username,
         password: req.body.password,
         email: req.body.email
     }
 
-    UserController.getUserByEmail(user.email, (err, user)=>{
+    UserController.getUserByEmail(newUser.email, (err, user)=>{
         if(err){
             res.json({
                 success: false,
@@ -20,7 +20,7 @@ router.post('/register', (req, res)=>{
 
         if(!user){
 
-            UserController.getUserByUsername(user.username, (err, user)=>{
+            UserController.getUserByUsername(newUser.username, (err, user)=>{
                 if(err){
                     res.json({
                         success: false,
@@ -30,7 +30,7 @@ router.post('/register', (req, res)=>{
 
                 if(!user){
 
-                    UserController.addUser(user, (err, user)=>{
+                    UserController.addUser(newUser, (err, user)=>{
                         if (err) res.status(500).json({
                             success: false,
                             msg: err._message
