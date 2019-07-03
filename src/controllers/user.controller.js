@@ -17,13 +17,14 @@ const getUserByEmail = (_email, callback)=>{
     user.findOne({email: _email}, callback)
 }
 
-const comparePassword = (_emailOrUsername, callback)=>{
-
+const comparePassword = (_password, _hash, callback)=>{
+    bcrypt.compare(_password, _hash, callback)
 }
 
 
 export default {
     addUser,
     getUserByUsername,
-    getUserByEmail
+    getUserByEmail,
+    comparePassword
 }
