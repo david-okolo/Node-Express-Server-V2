@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
+import myStrategy from './config/passport';
 import config from '../config';
 import {connect} from './config/database'
 import users from './routes/user.route'
@@ -17,6 +19,8 @@ const app = express();
 //Middleware
 app.use(cors());
 app.use(express.json());
+passport.initialize();
+passport.use(myStrategy);
 
 
 
