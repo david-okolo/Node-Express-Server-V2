@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connect = (_url) => {
+const dbconnect = (_url) => {
     return new Promise((resolve, reject) => {
         mongoose.connect(_url, {useNewUrlParser: true})
         .then(() => {
@@ -12,6 +12,6 @@ const connect = (_url) => {
 
 }
 
-const close = ()=> mongoose.disconnect();
+const dbclose = ()=> mongoose.disconnect();
 
-export {connect, close}
+export {dbconnect, dbclose}

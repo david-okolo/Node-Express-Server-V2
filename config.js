@@ -1,5 +1,5 @@
 const config  = {
-    databaseURI: "mongodb://localhost:27017/tdd",
+    databaseURI: `mongodb://localhost:27017/`,
     port: 3000
 }
 

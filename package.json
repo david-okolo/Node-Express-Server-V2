@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/app.js",
-    "test": "mocha --reporter progress test.js \\\"src/**/*.test.js\\\""
+    "start": "nodemon --exec babel-node src/server.js",
+    "test": "mocha test.js \\\"integration_tests/**/*.test.js\\\""
   },
   "author": "David Okolo",
   "license": "ISC",
@@ -17,9 +17,13 @@
     "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
-    "nodemon": "^1.19.1"
+    "mockgoose": "^8.0.2",
+    "mongodb-memory-server": "^5.1.5",
+    "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.6.2"
   }
