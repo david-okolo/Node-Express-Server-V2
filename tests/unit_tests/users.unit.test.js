@@ -50,14 +50,14 @@ const createLogin = (_name = username, _password = password)=>{
 }
 
 describe(`Users Unit Tests`, ()=>{
-    describe(`User helper functions`, ()=>{
+    describe(`#User helper email check`, ()=>{
         it(`should reject invalid email`, ()=>{
             expect(isEmail('badEmail')).to.be.false;
-        })
+        });
         it(`should accept valid email`, ()=>{
             expect(isEmail('good@email.com')).to.be.true;
-        })
-    })
+        });
+    });
 })
 
 describe('Users API Functional tests', ()=>{
@@ -76,8 +76,8 @@ describe('Users API Functional tests', ()=>{
     });
 
     
-    describe(`Tests start`, ()=>{
-        describe(`Registration`, ()=>{
+    describe(`#Tests start`, ()=>{
+        describe(`#Registration`, ()=>{
             it(`should not register bad requests`, (done) => {
                 let body = {
                     name: "root"
@@ -119,7 +119,7 @@ describe('Users API Functional tests', ()=>{
             });
         });
     
-        describe(`Authentication`, ()=>{
+        describe(`#Authentication`, ()=>{
             it(`should reject bad request`, (done)=>{
                 let body = {
                     name: 'Cookie'
