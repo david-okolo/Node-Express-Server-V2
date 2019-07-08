@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/server.js",
-    "test": "mocha test.js \\\"functional_tests/**/*.test.js\\\""
+    "test": "mocha --reporter dot test.js \\\"tests/**/*.test.js\\\" --exit"
   },
   "author": "David Okolo",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "mocha": "^6.1.4",
     "mockgoose": "^8.0.2",
     "mongodb-memory-server": "^5.1.5",
