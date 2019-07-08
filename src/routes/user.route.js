@@ -3,12 +3,12 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
-const isEmail = (_query)=>{
+export const isEmail = (_query)=>{
     let patternEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return patternEmail.test(_query);
 }
 
-const createToken = (_user, callback)=>{
+export const createToken = (_user, callback)=>{
     jwt.sign(JSON.stringify(_user), config.secret, callback);
 }
 
