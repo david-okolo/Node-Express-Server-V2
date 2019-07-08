@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/server.js",
-    "test": "mocha test.js \\\"integration_tests/**/*.test.js\\\""
+    "test": "mocha test.js \\\"functional_tests/**/*.test.js\\\""
   },
   "author": "David Okolo",
   "license": "ISC",
