@@ -8,6 +8,10 @@ const isEmail = (_query)=>{
     return patternEmail.test(_query);
 }
 
+const createToken = (_user, callback)=>{
+    jwt.sign(JSON.stringify(_user), config.secret, callback);
+}
+
 const router = express.Router();
 
 router.post('/register', (request, response)=>{
@@ -88,7 +92,7 @@ router.post('/authenticate', (request, response)=>{
         const sendToken = (_user)=>{
             UserController.comparePassword(login.password, _user.password, (err, isValid)=>{
                 if(err){
-                    return response.json({
+                    return response.json({ //TODO: specify err message 
                         success: false,
                         msg: err
                     })
@@ -100,7 +104,7 @@ router.post('/authenticate', (request, response)=>{
                         msg: 'wrong password'
                     })
                 }else{
-                    jwt.sign(JSON.stringify(_user), config.secret, (err, token)=>{
+                    createToken( _user, (err, token)=>{
                         if(err){
                             return response.json({
                                 success: false,
