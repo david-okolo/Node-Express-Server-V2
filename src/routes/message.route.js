@@ -1,3 +1,6 @@
+/*
+    To send and recieve data from AI API
+*/
 import express from 'express';
 import http from 'http';
 import config from '../../config'
